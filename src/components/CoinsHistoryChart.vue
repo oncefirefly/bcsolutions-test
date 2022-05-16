@@ -1,8 +1,9 @@
 <template>
-  <div class="converter__graph">
+  <div class="converter__history-graph history-graph">
     <label>
-      {{ this.currencyLabel }} to
-      <select v-model="vsCurrencyChart" class="graph__select">
+      <span :style="{ color: chartColor }">{{ this.currencyLabel }}</span>
+      to
+      <select v-model="vsCurrencyChart" class="history-graph__selector">
         <option value="USD">USD</option>
         <option value="ETH">ETH</option>
         <option value="BTC">BTC</option>
@@ -24,8 +25,8 @@
 </template>
 
 <script>
-import { getGraphData } from "../modules/api.js";
-import { Bar } from "vue-chartjs";
+import { getGraphData } from '../modules/api.js';
+import { Bar } from 'vue-chartjs';
 import {
   Chart as ChartJS,
   Title,
@@ -34,7 +35,7 @@ import {
   BarElement,
   CategoryScale,
   LinearScale,
-} from "chart.js";
+} from 'chart.js';
 
 ChartJS.register(
   Title,
@@ -46,7 +47,7 @@ ChartJS.register(
 );
 
 export default {
-  name: "BarChart",
+  name: 'BarChart',
   components: { Bar },
   props: {
     currencyLabel: {
@@ -63,15 +64,15 @@ export default {
     },
     chartId: {
       type: String,
-      default: "bar-chart",
+      default: 'bar-chart',
     },
     datasetIdKey: {
       type: String,
-      default: "label",
+      default: 'label',
     },
     cssClasses: {
       type: String,
-      default: "",
+      default: '',
     },
     width: {
       type: Number,
@@ -100,7 +101,7 @@ export default {
         },
       },
 
-      vsCurrencyChart: "USD",
+      vsCurrencyChart: 'USD',
       currencyHistoryPrices: [],
       currencyHistoryDates: [],
     };
@@ -135,7 +136,7 @@ export default {
       historyData.forEach((item, index) => {
         if (index < historyData.length - 1) {
           let date = new Date(item[0]);
-          let normalizedDate = date.getDate() + "." + `${date.getMonth() + 1}`;
+          let normalizedDate = date.getDate() + '.' + `${date.getMonth() + 1}`;
           let price = item[1];
 
           this.currencyHistoryPrices.push(price);

@@ -11,3 +11,10 @@ export const getConvertData = (currency, vsCurrency) =>
   )
     .then((r) => r.json())
     .then((data) => Object.values(Object.values(data)[0])[0]);
+
+export const getPortfolioData = () =>
+  fetch(
+    'https://api.coingecko.com/api/v3/simple/price?ids=bitcoin%2Cethereum&vs_currencies=usd'
+  )
+    .then((r) => r.json())
+    .then((data) => data);

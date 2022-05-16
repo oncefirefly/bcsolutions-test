@@ -32,14 +32,14 @@
         </div>
       </form>
       <hr />
-      <bar-chart
+      <coins-history-chart
         :currencyLabel="bitcoinChartLabel"
         :currency="bitcoinChartCurrency"
         :chartColor="bitcoinChartColor"
         :styles="chartsStyles"
       />
       <hr />
-      <bar-chart
+      <coins-history-chart
         :currencyLabel="ethereumChartLabel"
         :currency="ethereumChartCurrency"
         :chartColor="ethereumChartColor"
@@ -50,48 +50,48 @@
 </template>
 
 <script>
-import BarChart from "../components/BarChart.vue";
-import { getConvertData } from "../modules/api.js";
+import CoinsHistoryChart from '../components/CoinsHistoryChart.vue';
+import { getConvertData } from '../modules/api.js';
 
 export default {
-  name: "ConverterView",
-  components: { BarChart },
+  name: 'ConverterView',
+  components: { CoinsHistoryChart },
 
   data() {
     return {
       supportedCurrencies: [
         {
-          id: "bitcoin",
-          name: "BTC",
+          id: 'bitcoin',
+          name: 'BTC',
         },
         {
-          id: "ethereum",
-          name: "ETH",
+          id: 'ethereum',
+          name: 'ETH',
         },
         {
-          id: "usd-balance",
-          name: "USD",
+          id: 'usd-balance',
+          name: 'USD',
         },
       ],
 
       clientWidth: window.innerWidth,
 
-      convertPrice: "",
+      convertPrice: '',
 
-      currencySelect: "bitcoin",
-      vsCurrencySelect: "USD",
+      currencySelect: 'bitcoin',
+      vsCurrencySelect: 'USD',
 
       currencyValue: 0,
       vsCurrencyValue: 0,
 
-      bitcoinChartLabel: "BTC",
-      ethereumChartLabel: "ETH",
+      bitcoinChartLabel: 'BTC',
+      ethereumChartLabel: 'ETH',
 
-      bitcoinChartColor: "#fab005",
-      ethereumChartColor: "#ae34eb",
+      bitcoinChartColor: '#fab005',
+      ethereumChartColor: '#ae34eb',
 
-      bitcoinChartCurrency: "bitcoin",
-      ethereumChartCurrency: "ethereum",
+      bitcoinChartCurrency: 'bitcoin',
+      ethereumChartCurrency: 'ethereum',
     };
   },
 
@@ -104,14 +104,14 @@ export default {
 
   mounted: function () {
     window.addEventListener(
-      "resize",
+      'resize',
       () => (this.clientWidth = window.innerWidth)
     );
   },
 
   beforeUnmount: function () {
     window.removeEventListener(
-      "resize",
+      'resize',
       () => (this.clientWidth = window.innerWidth)
     );
   },
@@ -121,8 +121,8 @@ export default {
       this.vsCurrencyValue = this.currencyValue * this.convertPrice;
 
       return this.vsCurrencyValue > 1
-        ? (this.vsCurrencyValue = this.vsCurrencyValue.toFixed(2))
-        : (this.vsCurrencyValue = this.vsCurrencyValue.toPrecision(2));
+        ? (this.vsCurrencyValue = this.vsCurrencyValue.toFixed(4))
+        : (this.vsCurrencyValue = this.vsCurrencyValue.toPrecision(4));
     },
   },
 
@@ -130,15 +130,15 @@ export default {
     chartsStyles() {
       if (this.clientWidth > 480) {
         return {
-          margin: "0 auto",
+          margin: '0 auto',
           width: `${420}px`,
-          position: "relative",
+          position: 'relative',
         };
       } else {
         return {
-          margin: "0 auto",
+          margin: '0 auto',
           width: `${this.clientWidth - 10}px`,
-          position: "relative",
+          position: 'relative',
         };
       }
     },
