@@ -120,9 +120,10 @@ export default {
     updateConvertation() {
       this.vsCurrencyValue = this.currencyValue * this.convertPrice;
 
-      return this.vsCurrencyValue > 1
-        ? (this.vsCurrencyValue = this.vsCurrencyValue.toFixed(4))
-        : (this.vsCurrencyValue = this.vsCurrencyValue.toPrecision(4));
+      return (this.vsCurrencyValue =
+        this.vsCurrencyValue > 1
+          ? this.vsCurrencyValue.toFixed(2)
+          : this.vsCurrencyValue.toPrecision(2));
     },
   },
 

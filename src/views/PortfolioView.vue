@@ -148,8 +148,8 @@ export default {
       this.coins = JSON.parse(coinsData);
 
       for (let i = 0; i < this.coins.length; i++) {
-        this.totalPortfolioAmount += parseFloat(this.coins[i].amount);
-        this.totalPortfolioPrice += parseFloat(this.coins[i].totalPrice);
+        this.totalPortfolioAmount += +this.coins[i].amount;
+        this.totalPortfolioPrice += +this.coins[i].totalPrice;
       }
 
       this.coins.forEach((coin) => {
@@ -186,24 +186,32 @@ export default {
         coin.totalPrice = coin.amount * this.ethereumPrice;
       } else return;
 
-      coin.totalPrice > 1
-        ? (coin.totalPrice = coin.totalPrice.toFixed(4))
-        : (coin.totalPrice = coin.totalPrice.toPrecision(4));
+      coin.totalPrice = +(coin.totalPrice > 1
+        ? coin.totalPrice.toFixed(6)
+        : coin.totalPrice.toPrecision(2));
     });
 
     this.totalPortfolioPrice = 0;
 
     for (let i = 0; i < this.coins.length; i++) {
-      this.totalPortfolioPrice += parseFloat(this.coins[i].totalPrice);
+      this.totalPortfolioPrice += +this.coins[i].totalPrice;
     }
+
+    this.totalPortfolioPrice = +(this.totalPortfolioPrice > 1
+      ? this.totalPortfolioPrice.toFixed(4)
+      : this.totalPortfolioPrice.toPrecision(2));
   },
 
   updated: function () {
     this.totalPortfolioAmount = 0;
 
     for (let i = 0; i < this.coins.length; i++) {
-      this.totalPortfolioAmount += parseFloat(this.coins[i].amount);
+      this.totalPortfolioAmount += +this.coins[i].amount;
     }
+
+    this.totalPortfolioAmount = +(this.totalPortfolioAmount > 1
+      ? this.totalPortfolioAmount.toFixed(2)
+      : this.totalPortfolioAmount.toPrecision(2));
 
     this.coins.forEach((coin) => {
       if (coin.id === 'bitcoin') {
@@ -219,16 +227,24 @@ export default {
   methods: {
     addFixedAmount(fixedAmount, coin) {
       coin.amount += fixedAmount;
+
+      coin.amount = +(coin.amount > 1
+        ? coin.amount.toFixed(6)
+        : coin.amount.toPrecision(4));
     },
 
     addCustomAmount(coin) {
-      const customAmount = parseFloat(prompt('Enter custom amount:'));
+      const customAmount = +prompt('Enter custom amount:');
 
       if (isNaN(customAmount)) {
         return;
       }
 
       coin.amount += customAmount;
+
+      coin.amount = +(coin.amount > 1
+        ? coin.amount.toFixed(6)
+        : coin.amount.toPrecision(4));
     },
 
     substractFixedAmount(fixedAmount, coin) {
@@ -237,10 +253,14 @@ export default {
       } else {
         coin.amount = 0;
       }
+
+      coin.amount = +(coin.amount > 1
+        ? coin.amount.toFixed(6)
+        : coin.amount.toPrecision(4));
     },
 
     substractCustomAmount(coin) {
-      const customAmount = parseFloat(prompt('Enter custom amount:'));
+      const customAmount = +prompt('Enter custom amount:');
 
       if (isNaN(customAmount)) {
         return;
@@ -251,6 +271,10 @@ export default {
       } else {
         coin.amount = 0;
       }
+
+      coin.amount = +(coin.amount > 1
+        ? coin.amount.toFixed(6)
+        : coin.amount.toPrecision(4));
     },
   },
 
