@@ -152,6 +152,14 @@ export default {
         this.totalPortfolioPrice += +this.coins[i].totalPrice;
       }
 
+      this.totalPortfolioAmount = +(this.totalPortfolioAmount > 1
+        ? this.totalPortfolioAmount.toFixed(2)
+        : this.totalPortfolioAmount.toPrecision(2));
+
+      this.totalPortfolioPrice = +(this.totalPortfolioPrice > 1
+        ? this.totalPortfolioPrice.toFixed(4)
+        : this.totalPortfolioPrice.toPrecision(2));
+
       this.coins.forEach((coin) => {
         if (coin.id === 'bitcoin') {
           this.btcPercentAmount =
