@@ -4,11 +4,15 @@ import ConverterView from '../views/ConverterView.vue';
 const routes = [
   {
     path: '/',
-    name: 'home',
+    redirect: { name: 'Converter' },
+  },
+  {
+    path: '/bcsolutions-test/converter',
+    name: 'Converter',
     component: ConverterView,
   },
   {
-    path: '/portfolio',
+    path: '/bcsolutions-test/portfolio',
     name: 'portfolio',
     component: () => import('../views/PortfolioView.vue'),
   },

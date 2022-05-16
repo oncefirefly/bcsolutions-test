@@ -3,7 +3,7 @@
     <div class="header__content content">
       <nav>
         <router-link to="/">Converter</router-link>
-        <router-link to="/portfolio">Portfolio</router-link>
+        <router-link to="/bcsolutions-test/portfolio">Portfolio</router-link>
       </nav>
     </div>
   </header>
